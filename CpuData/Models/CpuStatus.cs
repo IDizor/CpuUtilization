@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace CpuData.Models
 {
@@ -20,6 +21,7 @@ namespace CpuData.Models
         /// <summary>
         /// Gets or sets the name of the PC where CPU status is monitored.
         /// </summary>
+        [Required]
         public string PcName { get; set; }
 
         /// <summary>

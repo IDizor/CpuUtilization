@@ -1,8 +1,4 @@
 ﻿using CpuData.Interfaces;
-using CpuData.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
 
 namespace CpuData
 {
@@ -20,20 +16,6 @@ namespace CpuData
             var context = dataContext as AppDbContext;
 
             context.Database.EnsureCreated();
-
-            if (context.CpuStatuses.Any())
-            {
-                return;
-            }
-
-            context.CpuStatuses.Add(new CpuStatus
-            {
-                TimeStamp = DateTime.UtcNow,
-                PcName = "PcName",
-                Usage = 0
-            });
-
-            context.SaveChanges();
         }
     }
 }

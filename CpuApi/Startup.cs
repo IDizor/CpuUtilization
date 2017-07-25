@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
+using NLog.Web;
 
 namespace CpuApi
 {
@@ -29,6 +31,7 @@ namespace CpuApi
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
             Configuration = builder.Build();
+            env.ConfigureNLog("nlog.config");
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -43,13 +46,13 @@ namespace CpuApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IAppDbContext dataContext)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+            AppDbInitializer.Initialize(dataContext);
+
+            loggerFactory.AddNLog();
+            app.AddNLogWeb();
 
             app.UseMiddleware(typeof(ExceptionHandlingMiddleware));
             app.UseMvc();
-
-            AppDbInitializer.Initialize(dataContext);
         }
     }
 }

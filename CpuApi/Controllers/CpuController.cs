@@ -1,21 +1,24 @@
 ﻿using CpuApi.Extensions;
-using CpuApi.Validation;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace CpuApi.Controllers
 {
     [Route("api/[controller]")]
     public class CpuController : Controller
     {
+        private readonly ILogger<CpuController> _logger;
+
+        public CpuController(ILogger<CpuController> logger)
+        {
+            _logger = logger;
+        }
+
         [HttpGet]
         [Route("status")]
-        public virtual async Task<IActionResult> GetStatus()
+        public virtual IActionResult GetStatus()
         {
-            Validator.Requires(false, ErrorCode.Invalid, "name");
-
-            return this.JsonOk(await Task.FromResult(DateTime.Now));
+            return this.JsonOk("CPU Utilization v1.0");
         }
     }
 }

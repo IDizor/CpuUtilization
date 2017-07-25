@@ -1,5 +1,6 @@
 ﻿using CpuApi.Extensions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,7 @@ namespace CpuApi.Middleware
         /// <param name="context">The context.</param>
         /// <param name="logger">The logger.</param>
         /// <returns></returns>
-        public async Task Invoke(HttpContext context/*, ILogger logger*/)
+        public async Task Invoke(HttpContext context, ILogger<ExceptionHandlingMiddleware> logger)
         {
             try
             {
@@ -38,11 +39,11 @@ namespace CpuApi.Middleware
             }
             catch (Exception ex)
             {
-                //if (logger != null)
-                //{
-                //    // log exception to the database
-                //    logger.LogError(new EventId(0), ex, DateTime.UtcNow.ToString());
-                //}
+                if (logger != null)
+                {
+                    // log exception to the database
+                    logger.LogError(ex, ex.Message);
+                }
 
                 await HandleException(context, ex);
             }

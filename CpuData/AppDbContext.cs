@@ -23,9 +23,22 @@ namespace CpuData
         /// </summary>
         public DbSet<CpuStatus> CpuStatuses { get; set; }
 
+        /// <summary>
+        /// Gets or sets the DB table for logs.
+        /// </summary>
+        public DbSet<Log> Logs { get; set; }
+
+        /// <summary>
+        /// Configures the model that was discovered by convention from the entity types
+        /// exposed in <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> properties on application DB context.
+        /// </summary>
+        /// <param name="modelBuilder">The builder being used to construct the model for this context. Databases (and other extensions) typically
+        /// define extension methods on this object that allow you to configure aspects of the model that are specific
+        /// to a given database.</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CpuStatus>().ToTable("CpuStatus");
+            modelBuilder.Entity<Log>().ToTable("Log");
         }
     }
 }

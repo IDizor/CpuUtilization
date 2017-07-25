@@ -16,7 +16,7 @@ namespace CpuApi.Extensions
         /// <param name="services">The services.</param>
         public static void RegisterDependencies(this IServiceCollection services)
         {
-            services.AddScoped<IAppDbContext, AppDbContext>();
+            services.AddTransient<IAppDbContext, AppDbContext>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ICpuStatusRepository, CpuStatusRepository>();
         }

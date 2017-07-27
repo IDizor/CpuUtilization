@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26711.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CpuApi", "CpuApi\CpuApi.csproj", "{24B0F4AB-D34E-45B0-AD38-A6DF69D14FD8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CpuApi", "CpuApi\CpuApi.csproj", "{24B0F4AB-D34E-45B0-AD38-A6DF69D14FD8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CpuData", "CpuData\CpuData.csproj", "{ED2DE7F9-09C7-43D3-A06E-0E205C2F76BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CpuData", "CpuData\CpuData.csproj", "{ED2DE7F9-09C7-43D3-A06E-0E205C2F76BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CpuWeb", "CpuWeb\CpuWeb.csproj", "{0D97423D-D26C-4CF1-B035-32489193B0A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{ED2DE7F9-09C7-43D3-A06E-0E205C2F76BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED2DE7F9-09C7-43D3-A06E-0E205C2F76BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED2DE7F9-09C7-43D3-A06E-0E205C2F76BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D97423D-D26C-4CF1-B035-32489193B0A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D97423D-D26C-4CF1-B035-32489193B0A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D97423D-D26C-4CF1-B035-32489193B0A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D97423D-D26C-4CF1-B035-32489193B0A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

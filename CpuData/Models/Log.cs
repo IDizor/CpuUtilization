@@ -20,7 +20,7 @@ namespace CpuData.Models
         /// <summary>
         /// Gets or sets the process identifier.
         /// </summary>
-        public string ProcessId { get; set; }
+        public int? ProcessId { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the machine.
@@ -35,7 +35,7 @@ namespace CpuData.Models
         /// <summary>
         /// Gets or sets the time stamp.
         /// </summary>
-        public DateTime? TimeStamp { get; set; }
+        public DateTime TimeStamp { get; set; }
 
         /// <summary>
         /// Gets or sets the log message.

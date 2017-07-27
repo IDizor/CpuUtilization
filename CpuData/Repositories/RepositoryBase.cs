@@ -36,6 +36,15 @@ namespace CpuData.Repositories
         }
 
         /// <summary>
+        /// DB table records of current repository.
+        /// </summary>
+        /// <returns></returns>
+        protected DbSet<T> Records()
+        {
+            return this.DataContext.Set<T>();
+        }
+
+        /// <summary>
         /// Inserts the specified entity.
         /// </summary>
         /// <param name="entity">The entity.</param>

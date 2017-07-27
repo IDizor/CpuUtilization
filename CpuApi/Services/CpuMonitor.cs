@@ -60,7 +60,7 @@ namespace CpuApi.Services
                         logger.LogError(ex, ex.Message);
                     }
 
-                    Thread.Sleep(2000);
+                    Thread.Sleep(300000);
                 }
             }, cancellationToken);
         }

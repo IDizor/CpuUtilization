@@ -1,5 +1,6 @@
 ﻿using CpuApi.Extensions;
 using CpuApi.Middleware;
+using CpuApi.Models;
 using CpuApi.Services;
 using CpuData;
 using CpuData.Interfaces;
@@ -39,6 +40,7 @@ namespace CpuApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<ApiConfiguration>(Configuration.GetSection("ApiConfiguration"));
             services.RegisterDependencies();
             services.AddDbContext<AppDbContext>(options => options
                 .UseSqlServer(Configuration.GetConnectionString("AppDb")));

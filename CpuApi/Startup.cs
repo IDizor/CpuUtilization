@@ -1,7 +1,9 @@
 ﻿using CpuApi.Extensions;
 using CpuApi.Middleware;
+using CpuApi.Services;
 using CpuData;
 using CpuData.Interfaces;
+using CpuData.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -53,6 +55,10 @@ namespace CpuApi
 
             app.UseMiddleware(typeof(ExceptionHandlingMiddleware));
             app.UseMvc();
+
+            var cpuMonitorUnitOfWork = new UnitOfWork(dataContext);
+            var cpuMonitor = new CpuMonitor(loggerFactory.CreateLogger<CpuMonitor>(),
+                cpuMonitorUnitOfWork, new CpuStatusRepository(cpuMonitorUnitOfWork));
         }
     }
 }

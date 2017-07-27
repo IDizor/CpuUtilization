@@ -45,7 +45,10 @@ namespace CpuApi.Middleware
                     logger.LogError(ex, ex.Message);
                 }
 
-                await HandleException(context, ex);
+                if (context?.Response != null)
+                {
+                    await HandleException(context, ex);
+                }
             }
         }
 

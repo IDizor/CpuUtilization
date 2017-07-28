@@ -1,7 +1,7 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
   <h1>{{status}}</h1>
-  <ul *ngFor="let value of ">
-    <li>{{value}}</li>
+  <ul *ngFor="let cpu of cpuUtilizationRecords">
+    <li>{{cpu.usage}}</li>
   </ul>
 </div>

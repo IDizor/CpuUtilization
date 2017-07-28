@@ -28,6 +28,8 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="src\app\models\api-response.ts" />
+    <TypeScriptCompile Include="src\app\models\cpu-status.ts" />
+    <TypeScriptCompile Include="src\app\services\cpu-utilization.service.ts" />
   </ItemGroup>
   
 </Project>

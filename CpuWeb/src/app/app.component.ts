@@ -18,6 +18,7 @@ export class AppComponent implements OnInit {
     page: number = 0;
     pageSize: number = 50;
     totalCount: number = 0;
+    pageSizes: Array<number> = [10,20,50,100];
 
     ngOnInit() {
         this.cpuUtilizationService.getApiStatus().subscribe((response: ApiResponse<string>) => {
@@ -29,7 +30,7 @@ export class AppComponent implements OnInit {
 
     getCpuUtilization(p: number = 1): void {
         this.page = p;
-        let offset = this.page * this.pageSize - this.pageSize;
+        let offset = (this.page - 1) * this.pageSize;
 
         this.cpuUtilizationService.getCpuUtilization(offset, this.pageSize).subscribe((response: ApiResponse<Array<CpuStatus>>) => {
             this.cpuUtilizationRecords = response.data.map(cs => new CpuStatus(cs.pcName, cs.usage, cs.timeStamp));

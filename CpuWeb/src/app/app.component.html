@@ -2,7 +2,17 @@
   <div class="col-md-9">
     <h1>{{status}}</h1>
 
-    <pagination-controls (pageChange)="getCpuUtilization($event)"></pagination-controls>
+    <div class="col-md-4">
+      <pagination-controls (pageChange)="getCpuUtilization($event)"></pagination-controls>
+    </div>
+    <div class="col-md-4">
+      <label>
+        Per Page:
+        <select class="form-control" [(ngModel)]="pageSize" (change)="getCpuUtilization()">
+          <option *ngFor="let size of pageSizes">{{size}}</option>
+        </select>
+      </label>
+    </div>
 
     <table class="table table-bordered">
       <thead>
@@ -23,7 +33,17 @@
       </tbody>
     </table>
 
-    
+    <div class="col-md-4">
+      <pagination-controls (pageChange)="getCpuUtilization($event)"></pagination-controls>
+    </div>
+    <div class="col-md-4">
+      <label>
+        Per Page:
+        <select class="form-control" [(ngModel)]="pageSize" (change)="getCpuUtilization()">
+          <option *ngFor="let size of pageSizes">{{size}}</option>
+        </select>
+      </label>
+    </div>
 
   </div>
 </div>

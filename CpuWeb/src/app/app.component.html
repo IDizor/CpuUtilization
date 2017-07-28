@@ -2,6 +2,7 @@
   <div class="col-md-9">
     <h1>{{status}}</h1>
 
+    <pagination-controls (pageChange)="getCpuUtilization($event)"></pagination-controls>
 
     <table class="table table-bordered">
       <thead>
@@ -12,16 +13,17 @@
         </tr>
       </thead>
       <tbody>
-        <ng-template ngFor let-item [ngForOf]="cpuUtilizationRecords">
+        <ng-container *ngFor="let item of cpuUtilizationRecords | paginate: { itemsPerPage: pageSize, currentPage: page, totalItems: totalCount }">
           <tr [ngClass]="item.cssColorClass">
             <td>{{item.pcName}}</td>
             <td>{{item.usage | number : '1.1-1'}} %</td>
             <td>{{item.timeStamp}}</td>
           </tr>
-        </ng-template>
+        </ng-container>
       </tbody>
     </table>
 
+    
 
   </div>
 </div>

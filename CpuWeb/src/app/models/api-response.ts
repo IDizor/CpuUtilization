@@ -1,5 +1,5 @@
 export class ApiResponse<T> {
-  data: T;
-  totalCount: number;
-  error: string;
+    data: T;
+    totalCount: number;
+    error: string;
 }

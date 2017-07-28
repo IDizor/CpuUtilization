@@ -9,11 +9,11 @@ export class CpuStatus {
         this.timeStamp = timeStamp;
     }
 
-    get color(): string {
+    get cssColorClass(): string {
         return this.usage > 70
-            ? "red"
+            ? "danger"
             : this.usage >= 30
-                ? "yellow"
-                : "green";
+                ? "warning"
+                : "success";
     }
 }

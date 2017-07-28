@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ApiResponse } from './models/api-response';
 import { CpuStatus } from './models/cpu-status';
 import { CpuUtilizationService } from './services/cpu-utilization.service';
+import { NgClass } from '@angular/common';
+import 'rxjs/add/operator/map';
 
 @Component({
     selector: 'app-root',
@@ -28,7 +30,7 @@ export class AppComponent implements OnInit {
 
     getCpuUtilization(): void {
         this.cpuUtilizationService.getCpuUtilization(this.offset, this.limit).subscribe((response: ApiResponse<Array<CpuStatus>>) => {
-            this.cpuUtilizationRecords = response.data;
+            this.cpuUtilizationRecords = response.data.map(cs => new CpuStatus(cs.pcName, cs.usage, cs.timeStamp));
             this.totalCount = response.totalCount;
         });
     };

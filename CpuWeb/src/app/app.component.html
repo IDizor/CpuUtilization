@@ -27,7 +27,7 @@
           <tr [ngClass]="item.cssColorClass">
             <td>{{item.pcName}}</td>
             <td>{{item.usage | number : '1.1-1'}} %</td>
-            <td>{{item.timeStamp}}</td>
+            <td>{{item.timeStamp | date : 'yyyy/MM/dd - h:mm a' }}</td>
           </tr>
         </ng-container>
       </tbody>

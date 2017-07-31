@@ -15,6 +15,8 @@
 
   <ItemGroup>
     <None Remove="src\app\models\api-response.ts" />
+    <None Remove="src\app\pagination\pagination.component.ts" />
+    <None Remove="src\app\pagination\pagination.module.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,6 +31,8 @@
   <ItemGroup>
     <TypeScriptCompile Include="src\app\models\api-response.ts" />
     <TypeScriptCompile Include="src\app\models\cpu-status.ts" />
+    <TypeScriptCompile Include="src\app\pagination\pagination.component.ts" />
+    <TypeScriptCompile Include="src\app\pagination\pagination.module.ts" />
     <TypeScriptCompile Include="src\app\services\cpu-utilization.service.ts" />
   </ItemGroup>
   

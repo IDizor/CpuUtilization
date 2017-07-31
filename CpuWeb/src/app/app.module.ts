@@ -5,7 +5,8 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { CpuUtilizationService } from './services/cpu-utilization.service';
 import { CommonModule } from '@angular/common';
-import { NgxPaginationModule } from 'ngx-pagination'; 
+import { PaginationModule } from './pagination/pagination.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
     declarations: [
@@ -16,6 +17,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
         FormsModule,
         HttpModule,
         CommonModule,
+        PaginationModule,
         NgxPaginationModule
     ],
     providers: [CpuUtilizationService],

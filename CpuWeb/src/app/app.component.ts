@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiResponse } from './models/api-response';
 import { CpuStatus } from './models/cpu-status';
+import { PaginationComponent } from './pagination/pagination.component';
 import { CpuUtilizationService } from './services/cpu-utilization.service';
+import { PaginationOptions } from './models/pagination-options';
 import { NgClass } from '@angular/common';
 import 'rxjs/add/operator/map';
 
@@ -15,10 +17,7 @@ export class AppComponent implements OnInit {
 
     status: string;
     cpuUtilizationRecords: Array<CpuStatus>;
-    page: number = 0;
-    pageSize: number = 50;
-    totalCount: number = 0;
-    pageSizes: Array<number> = [10,20,50,100];
+    pagerOptions = new PaginationOptions();
 
     ngOnInit() {
         this.cpuUtilizationService.getApiStatus().subscribe((response: ApiResponse<string>) => {
@@ -28,13 +27,10 @@ export class AppComponent implements OnInit {
         this.getCpuUtilization();
     };
 
-    getCpuUtilization(p: number = 1): void {
-        this.page = p;
-        let offset = (this.page - 1) * this.pageSize;
-
-        this.cpuUtilizationService.getCpuUtilization(offset, this.pageSize).subscribe((response: ApiResponse<Array<CpuStatus>>) => {
+    getCpuUtilization(): void {
+        this.cpuUtilizationService.getCpuUtilization(this.pagerOptions.offset, this.pagerOptions.pageSize).subscribe((response: ApiResponse<Array<CpuStatus>>) => {
             this.cpuUtilizationRecords = response.data.map(cs => new CpuStatus(cs.pcName, cs.usage, cs.timeStamp));
-            this.totalCount = response.totalCount;
+            this.pagerOptions.totalCount = response.totalCount;
         });
     };
 }

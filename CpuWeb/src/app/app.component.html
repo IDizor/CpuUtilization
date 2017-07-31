@@ -2,17 +2,7 @@
   <div class="col-md-9">
     <h1>{{status}}</h1>
 
-    <div class="col-md-4">
-      <pagination-controls (pageChange)="getCpuUtilization($event)"></pagination-controls>
-    </div>
-    <div class="col-md-4">
-      <label>
-        Per Page:
-        <select class="form-control" [(ngModel)]="pageSize" (change)="getCpuUtilization()">
-          <option *ngFor="let size of pageSizes">{{size}}</option>
-        </select>
-      </label>
-    </div>
+    <pages [(options)]="pagerOptions" (onChange)="getCpuUtilization($event)"></pages>
 
     <table class="table table-bordered">
       <thead>
@@ -23,7 +13,7 @@
         </tr>
       </thead>
       <tbody>
-        <ng-container *ngFor="let item of cpuUtilizationRecords | paginate: { itemsPerPage: pageSize, currentPage: page, totalItems: totalCount }">
+        <ng-container *ngFor="let item of cpuUtilizationRecords | paginate: { itemsPerPage: pagerOptions.pageSize, currentPage: pagerOptions.page, totalItems: pagerOptions.totalCount }">
           <tr [ngClass]="item.cssColorClass">
             <td>{{item.pcName}}</td>
             <td>{{item.usage | number : '1.1-1'}} %</td>
@@ -33,17 +23,7 @@
       </tbody>
     </table>
 
-    <div class="col-md-4">
-      <pagination-controls (pageChange)="getCpuUtilization($event)"></pagination-controls>
-    </div>
-    <div class="col-md-4">
-      <label>
-        Per Page:
-        <select class="form-control" [(ngModel)]="pageSize" (change)="getCpuUtilization()">
-          <option *ngFor="let size of pageSizes">{{size}}</option>
-        </select>
-      </label>
-    </div>
+    <pages [(options)]="pagerOptions" (onChange)="getCpuUtilization($event)"></pages>
 
   </div>
 </div>

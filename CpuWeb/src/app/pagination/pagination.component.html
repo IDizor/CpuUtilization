@@ -1,0 +1,11 @@
+<div class="col-md-4">
+  <pagination-controls (pageChange)="onUpdate($event)"></pagination-controls>
+</div>
+<div class="col-md-4">
+  <label>
+    Per Page:
+    <select class="form-control" [(ngModel)]="options.pageSize" (change)="onUpdate(1)">
+      <option *ngFor="let size of options.pageSizes">{{size}}</option>
+    </select>
+  </label>
+</div>

@@ -1,5 +1,6 @@
 ﻿using CpuApi.Extensions;
 using CpuApi.Middleware;
+using CpuApi.ModelBinders;
 using CpuApi.Models;
 using CpuApi.Services;
 using CpuData;
@@ -13,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 using NLog.Web;
+using System.Linq;
 
 namespace CpuApi
 {
@@ -42,9 +44,14 @@ namespace CpuApi
         {
             services.Configure<ApiConfiguration>(Configuration.GetSection("ApiConfiguration"));
             services.RegisterDependencies();
+
             services.AddDbContext<AppDbContext>(options => options
                 .UseSqlServer(Configuration.GetConnectionString("AppDb")));
-            services.AddMvc();
+
+            services.AddMvc(options =>
+            {
+                options.ModelBinderProviders.Insert(0, new ArrayModelBinder.Provider());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

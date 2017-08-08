@@ -6,7 +6,7 @@ namespace CpuData.Models
     /// <summary>
     /// Represents model for CpuStatus DB table.
     /// </summary>
-    public class CpuStatus
+    public class CpuStatus : TrackableSoftDeletable
     {
         /// <summary>
         /// Gets or sets the CPU status identifier.

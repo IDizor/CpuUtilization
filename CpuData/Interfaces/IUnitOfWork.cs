@@ -16,6 +16,8 @@ namespace CpuData.Interfaces
         /// <summary>
         /// Saves all changes in data context.
         /// </summary>
-        Task<int> Save();
+        /// <param name="currentUser">The current user.</param>
+        /// <returns></returns>
+        Task<int> Save(string currentUser = "");
     }
 }

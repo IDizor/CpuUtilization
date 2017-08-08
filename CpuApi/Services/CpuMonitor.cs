@@ -2,6 +2,9 @@
 using CpuData.Models;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -23,6 +26,16 @@ namespace CpuApi.Services
         private readonly Task monitor;
 
         /// <summary>
+        /// The wmic process to get CPU usage percentage.
+        /// </summary>
+        private readonly Process wmicProcess;
+
+        /// <summary>
+        /// The CPU check iterations count.
+        /// </summary>
+        private const int cpuCheckIterationsCount = 5;
+
+        /// <summary>
         /// The monitoring cancellation token source.
         /// </summary>
         private readonly CancellationTokenSource cancellationTokenSource;
@@ -35,6 +48,13 @@ namespace CpuApi.Services
         /// <param name="cpuStatusRepository">The CPU status repository.</param>
         public CpuMonitor(ILogger<CpuMonitor> logger, IUnitOfWork unitOfWork, ICpuStatusRepository cpuStatusRepository)
         {
+            wmicProcess = new Process();
+            wmicProcess.StartInfo.UseShellExecute = false;
+            wmicProcess.StartInfo.RedirectStandardOutput = true;
+            wmicProcess.StartInfo.CreateNoWindow = true;
+            wmicProcess.StartInfo.FileName = "wmic.exe";
+            wmicProcess.StartInfo.Arguments = "cpu get loadpercentage";
+
             this.pcName = Environment.MachineName;
             this.cancellationTokenSource = new CancellationTokenSource();
             var cancellationToken = cancellationTokenSource.Token;
@@ -48,8 +68,7 @@ namespace CpuApi.Services
                         cpuStatusRepository.Insert(new CpuStatus
                         {
                             PcName = this.pcName,
-                            // unable to get CPU load in .NET Core, use random
-                            Usage = new Random().NextDouble() * 100,
+                            Usage = GetAverageCpuUsage(),
                             TimeStamp = DateTime.UtcNow
                         }).Wait();
 
@@ -76,5 +95,34 @@ namespace CpuApi.Services
                 this.cancellationTokenSource.Cancel();
             }
         }
+
+        #region Private_Methods
+        /// <summary>
+        /// Gets the average CPU usage.
+        /// </summary>
+        /// <param name="iterations">The iterations.</param>
+        /// <returns></returns>
+        private int GetAverageCpuUsage()
+        {
+            var cpusUsage = new List<int>();
+
+            for (int i = 0; i < cpuCheckIterationsCount; i++)
+            {
+                wmicProcess.Start();
+
+                var usages = wmicProcess.StandardOutput.ReadToEnd()
+                    .Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Skip(1)
+                    .Select(line => Int32.Parse(line.Trim()))
+                    .ToArray();
+
+                cpusUsage.Add(usages.Sum());
+                wmicProcess.WaitForExit();
+                Thread.Sleep(1000);
+            }
+
+            return (int)Math.Round(cpusUsage.Average());
+        }
+        #endregion
     }
 }

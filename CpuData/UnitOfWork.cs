@@ -1,6 +1,8 @@
-﻿using CpuData.Interfaces;
+﻿using CpuCommon.Extensions;
+using CpuData.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CpuData
@@ -48,14 +50,70 @@ namespace CpuData
         /// <summary>
         /// Saves all changes in data context.
         /// </summary>
+        /// <param name="currentUser">The current user.</param>
         /// <returns></returns>
+        /// <exception cref="System.Exception">An exception occurred during updating the database.</exception>
         /// <exception cref="Exception">An exception occurred during updating the database.</exception>
-        public async Task<int> Save()
+        public async Task<int> Save(string currentUser = "")
         {
             int result = 0;
 
             try
             {
+                var changedEntries = this.dataContext.ChangeTracker.Entries()
+                    .Where(entry => entry.State == EntityState.Added ||
+                        entry.State == EntityState.Modified ||
+                        entry.State == EntityState.Deleted)
+                    .ToArray();
+
+                // perform entity tracking and process soft deletable entities
+                changedEntries.Each(entry =>
+                {
+                    switch (entry.State)
+                    {
+                        case (EntityState.Added):
+                            var addedEntity = entry.Entity as ITrackable;
+
+                            if (addedEntity != null)
+                            {
+                                addedEntity.Created = DateTime.UtcNow;
+                                addedEntity.CreatedBy = currentUser;
+                                addedEntity.Modified = DateTime.UtcNow;
+                                addedEntity.ModifiedBy = currentUser;
+                            }
+
+                            break;
+                        case (EntityState.Modified):
+                            var modifiedEntity = entry.Entity as ITrackable;
+
+                            if (modifiedEntity != null)
+                            {
+                                modifiedEntity.Modified = DateTime.UtcNow;
+                                modifiedEntity.ModifiedBy = currentUser;
+                            }
+
+                            break;
+                        case (EntityState.Deleted):
+                            var deletedEntity = entry.Entity as ISoftDeletable;
+
+                            if (deletedEntity != null)
+                            {
+                                entry.State = EntityState.Modified;
+                                deletedEntity.IsActive = false;
+
+                                var deletedModifiedEntity = entry.Entity as ITrackable;
+
+                                if (deletedModifiedEntity != null)
+                                {
+                                    deletedModifiedEntity.Modified = DateTime.UtcNow;
+                                    deletedModifiedEntity.ModifiedBy = currentUser;
+                                }
+                            }
+
+                            break;
+                    }
+                });
+
                 result = await this.dataContext.SaveChangesAsync();
             }
             catch (DbUpdateException ex)

@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26711.1
+VisualStudioVersion = 15.0.26730.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CpuApi", "CpuApi\CpuApi.csproj", "{24B0F4AB-D34E-45B0-AD38-A6DF69D14FD8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CpuData", "CpuData\CpuData.csproj", "{ED2DE7F9-09C7-43D3-A06E-0E205C2F76BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CpuWeb", "CpuWeb\CpuWeb.csproj", "{0D97423D-D26C-4CF1-B035-32489193B0A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CpuWeb", "CpuWeb\CpuWeb.csproj", "{0D97423D-D26C-4CF1-B035-32489193B0A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CpuCommon", "CpuCommon\CpuCommon.csproj", "{B619D789-F5FD-478A-91A4-15A082D85B0F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{0D97423D-D26C-4CF1-B035-32489193B0A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D97423D-D26C-4CF1-B035-32489193B0A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D97423D-D26C-4CF1-B035-32489193B0A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B619D789-F5FD-478A-91A4-15A082D85B0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B619D789-F5FD-478A-91A4-15A082D85B0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B619D789-F5FD-478A-91A4-15A082D85B0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B619D789-F5FD-478A-91A4-15A082D85B0F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
